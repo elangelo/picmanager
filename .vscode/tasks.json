@@ -1,0 +1,33 @@
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "0.1.0",
+    "linux": {
+        "command" : "sh",
+        "args": ["-c" ]
+    },
+    "isShellCommand": true,
+    "showOutput": "always",
+    "suppressTaskName": false,
+    "tasks": [
+        {
+            "taskName": "picmanager",
+            "suppressTaskName": true,
+            "echoCommand": true,
+            "args": ["npm start"]
+        },
+        {
+            "taskName": "npm install",
+            "suppressTaskName": true,
+            "echoCommand": true,
+            "args": ["cd client && npm install"]
+        },
+        {
+            
+            "taskName": "npm update",
+            "suppressTaskName": true,
+            "echoCommand": true,
+            "args": ["cd client && npm update"]
+        }
+    ]
+}
