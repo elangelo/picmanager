@@ -10,7 +10,7 @@ const _ = require('lodash');
 
 const app = express();
 
-app.set('port', (process.env.PORT || 3001));
+app.set('port', (process.env.PORT || 3100));
 
 // // Express only serves static assets in production
 // if (process.env.NODE_ENV === 'production') {
@@ -32,11 +32,12 @@ var basedir = '/home/samuel/temp/800'
 
 var router = express.Router();
 
-router.get('/', function(req, res) {
-    res.json({ message: 'hooray! welcome to our api!' });   
-});
+// router.get('/', function(req, res) {
+//     res.json({ message: 'hooray! welcome to our api!' });   
+// });
 
 router.get('/files', function(req, res){
+  //console.log(req);
   var query = req.query.path || '';
   var currentDir;
   if (query) {
