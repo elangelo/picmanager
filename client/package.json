@@ -2,18 +2,26 @@
   "name": "client",
   "version": "0.1.0",
   "private": true,
-  "proxy": "http://localhost:3100/",
-  "devDependencies": {
-    "react-scripts": "0.7.0"
-  },
   "dependencies": {
-    "react": "^15.3.2",
-    "react-dom": "^15.3.2"
+    "react": "^15.4.0",
+    "react-dom": "^15.4.0"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
+    "start": "node ./build/dev/server.js"
+  },
+  "devDependencies": {
+    "babel-core": "^6.18.2",
+    "babel-eslint": "^7.1.1",
+    "babel-loader": "^6.2.8",
+    "babel-plugin-transform-runtime": "^6.15.0",
+    "babel-preset-es2015": "^6.18.0",
+    "babel-preset-react": "^6.16.0",
+    "babel-preset-stage-0": "^6.16.0",
+    "eslint": "^3.10.2",
+    "eslint-loader": "^1.6.1",
+    "eslint-plugin-react": "^6.7.1",
+    "react-hot-loader": "^3.0.0-beta.6",
+    "webpack": "^1.13.3",
+    "webpack-dev-server": "^1.16.2"
   }
 }
