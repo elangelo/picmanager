@@ -1,50 +1,61 @@
-import React, {Component} from 'react'
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 
- const dirContent = [
- {IsDirectory : true, Name:"2004", Path:"2004"},
- {IsDirectory : true, Name:"2005", Path:"2005"},
- {IsDirectory: false, Name:"IMG_65554.jpg", Path:"IMG_65554.jpg"}
- ]
+import * as GalleryActions from './actions.js';
 
-export default class Gallery extends Component {
+export class Gallery extends Component {
     constructor(props) {
         super(props);
-        this.state = {
-            children: dirContent
-        }
+        // this.props.dispatch({ type: 'TEST' });
+        console.log(props);
     }
-    componentDidMount(){
-        fetch('./api/files?path=')
-        .then(function (response){
-            response.json();
-        })
-        .then(function (blob) {
-            alert(blob);
-            this.setState({blob});
-       });
-    }
-    render(){
-        const {children} = this.state;
+    // componentDidMount() {
+    //     fetch('./api/files?path=')
+    //         .then(function (response) {
+    //             return response.json();
+    //         })
+    //         .then(function (blob) {
+    //             this.setState({ blob });
+    //         }).catch(function (err) {
+    //             alert(err);
+    //         });
+    // }
+    render() {
+        const {children, currentpath, selectDirectory} = this.props;
 
-        var htmlChildren = children.map(function(child, index){
-            if (child.IsDirectory){
-                 return (
-                     <div>
+        var htmlChildren = children.map(function (child, index) {
+            if (child.IsDirectory) {
+                return (
+                    <div key={index} onClick={() => selectDirectory(child.name)}>
                         {child.Name}
                     </div>
-                )
+                );
             }
             else {
                 return (
-                    <div>image</div>
-                ) 
+                    <div key={index}>image</div>
+                );
             }
-        })
+        });
 
         return (
             <div>
                 {htmlChildren}
             </div>
-        )
+        );
     }
- }
+}
+
+function mapActionCreatorsToProps(dispatch) {
+    return bindActionCreators(GalleryActions, dispatch);
+}
+
+function mapStateToProps(state) {
+    return {
+        children: state.children,
+        path: state.currentpath
+    };
+}
+
+export default connect(mapStateToProps, mapActionCreatorsToProps)(Gallery);

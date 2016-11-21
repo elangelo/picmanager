@@ -36,8 +36,8 @@ var router = express.Router();
 //     res.json({ message: 'hooray! welcome to our api!' });   
 // });
 
-router.get('/files', function(req, res){
-  //console.log(req);
+router.get('/files', function (req, res) {
+  console.log(req.query);
   var query = req.query.path || '';
   var currentDir;
   if (query) {
@@ -45,32 +45,32 @@ router.get('/files', function(req, res){
   } else {
     currentDir = path.join(basedir, '');
   }
-  fs.stat(currentDir, function (err, stats){
-      if (err && err.errno === -2) {
-        res.status(404).send("could not find that");
-      }
-      else 
-      {
-        fs.readdir(currentDir, function (err, files){
-          if (err){
-            throw err;
-          }
-          var data = [];
-          files.filter(function (file){ return true; })
-              .forEach(function(file){
-                  var isDirectory = fs.statSync(path.join(currentDir, file)).isDirectory();
-                  if (isDirectory){
-                    //find out if it has children
-                    data.push({Name: file, IsDirectory: true, Path: path.join(query, file)});
-                  } else{
-                    var ext = path.extname(file);
-                    data.push ({Name : file, Ext: ext, IsDirectory: false, Path: path.join(query.file)});
-                  }
-              });
-          data = _.sortBy(data, function(f) { return f.Name });
-          res.json(data);
-        })
-      }
+  fs.stat(currentDir, function (err, stats) {
+    if (err && err.errno === -2) {
+      res.status(404).send("could not find that");
+    }
+    else {
+      fs.readdir(currentDir, function (err, files) {
+        if (err) {
+          throw err;
+        }
+        var data = [];
+        files.filter(function (file) { return true; })
+          .forEach(function (file) {
+            var isDirectory = fs.statSync(path.join(currentDir, file)).isDirectory();
+            if (isDirectory) {
+              //find out if it has children
+              data.push({ Name: file, IsDirectory: true, Path: path.join(query, file) });
+            } else {
+              var ext = path.extname(file);
+              data.push({ Name: file, Ext: ext, IsDirectory: false, Path: path.join(query.file) });
+            }
+          });
+        data = _.sortBy(data, function (f) { return f.Name });
+        console.log(data);
+        res.json(data);
+      })
+    }
   });
 });
 
