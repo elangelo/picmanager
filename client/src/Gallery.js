@@ -37,36 +37,34 @@ export class Gallery extends Component {
             htmlChildren = <div>nothing found</div>;
         }
 
-        console.log('<****************>');
-        console.log(currentpath);
-        var htmlpath = currentpath
-            .split('/')
-            .filter((item) => (item != ''))
-            .map(function (item, index) {
-                return (
-                    <div id='index'>
-                        <div>/</div>
-                        <div>{item}</div>
-                    </div>
-                );
-            });
-        // if (a.length > 0) {
-        //     a.forEach(function (element) {
-        //         console.log('splitted this part: ' + element);
-        //         htmlpath += <div>/</div> + <div></div>;
-        //     });
-        // }
-        // else {
-        //     htmlpath = <div>/</div>;
-        // }
 
-        console.log(htmlpath);
-        console.log('</****************>');
+        var pathparts = currentpath
+            .split('/')
+            .filter((item) => (item != ''));
+        var grmblpath = new Array();
+        for (var i = 0; i < pathparts.length; i++) {
+            var grr = pathparts[i];
+            if (i > 0) {
+                grr = grmblpath[i - 1] + grr;
+            }
+            grmblpath[i] = grr;
+        }
+
+        var htmlpath = grmblpath.map(function (item, index) {
+            return (
+                <div id={index} style={{display: 'block', border: '1px solid red'}}>
+                    <div style={{float: 'left'}}>></div>
+                    <div style={{float: 'left'}} onClick={() => listDirectory(item)}>
+                        {item}
+                    </div>
+                </div>
+            );
+        });
 
         return (
             <div>
                 <div id='path'>{htmlpath}</div>
-                <div>
+                <div style={{display: 'block'}}>
                     {htmlChildren}
                 </div>
             </div>

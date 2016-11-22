@@ -1,6 +1,6 @@
 import { listChildren } from './communication';
 import * as GalleryActions from './actions.js';
-import { put, take } from 'redux-saga/effects';
+import { put, take, fork } from 'redux-saga/effects';
 
 export function* loadChildren(newpath = '/') {
   const children = yield listChildren(newpath);
@@ -13,6 +13,6 @@ export function* watchForLoadChildren() {
     //console.log('watching for LIST_DIRECTORY action');
     const { directory } = yield take(GalleryActions.LIST_DIRECTORY);
     console.log('got a LIST_DIRECTORY action ' + directory);
-    yield loadChildren(directory);
+    yield fork(loadChildren, directory);
   }
 }
