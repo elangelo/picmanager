@@ -6,8 +6,7 @@ const defaultState = {
 
 export default function children(state = defaultState, action) {
     switch (action.type) {
-        case 'CD':
-            console.log('this is just a test');
+        case 'LIST_DIRECTORY':
             return {
                 ...state,
                 currentPath: action.child.path

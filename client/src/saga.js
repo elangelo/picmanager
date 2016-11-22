@@ -1,19 +1,15 @@
+import { listChildren } from './communication';
 
-const fetchChildren = () => {
-    fetch('./api/files?path=')
-        .then(function (response) {
-            return response.json();
-        })
-        .then(function (blob) {
-            return blob;
-        }).catch(function (err) {
-            alert(err);
-        });
-};
-
-import {put} from 'redux-saga/effects';
+import { put, take } from 'redux-saga/effects';
 
 export function* loadChildren() {
-    const children = yield fetchChildren();
-    console.log('load some children');
+    const children = yield listChildren();
+    yield put({type: 'CD_DONE', children});
+}
+
+export function* watchForLoadChildren() {
+  while(true) {
+    yield take('CD');
+    yield loadChildren();
+  }
 }

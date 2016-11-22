@@ -1,8 +1,15 @@
-export const CD = 'CD';
+export const LIST_DIRECTORY = 'LIST_DIRECTORY';
+//const LOAD_CHILDREN = 'LOAD_CHILDREN';
 
-export function selectDirectory(directory) {
+export function listDirectory(directory) {
     return {
-        type: CD,
+        type: LIST_DIRECTORY,
         directory
     };
 }
+
+// export function loadChildren() {
+//     return {
+//         type: LOAD_CHILDREN
+//     };
+// }

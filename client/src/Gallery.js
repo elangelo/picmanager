@@ -10,6 +10,9 @@ export class Gallery extends Component {
         // this.props.dispatch({ type: 'TEST' });
         console.log(props);
     }
+    componentDidMount() {
+        this.props.loadChildren;
+    }
     // componentDidMount() {
     //     fetch('./api/files?path=')
     //         .then(function (response) {
