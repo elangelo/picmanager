@@ -7,46 +7,71 @@ import * as GalleryActions from './actions.js';
 export class Gallery extends Component {
     constructor(props) {
         super(props);
-        // this.props.dispatch({ type: 'TEST' });
-        console.log(props);
+        console.log('constructor gallery');
     }
     componentDidMount() {
-        this.props.loadChildren;
+        this.props.listDirectory('/');
     }
-    // componentDidMount() {
-    //     fetch('./api/files?path=')
-    //         .then(function (response) {
-    //             return response.json();
-    //         })
-    //         .then(function (blob) {
-    //             this.setState({ blob });
-    //         }).catch(function (err) {
-    //             alert(err);
-    //         });
-    // }
     render() {
-        const {children, currentpath, selectDirectory} = this.props;
+        const {children, currentpath, listDirectory} = this.props;
 
-        var htmlChildren = children.map(function (child, index) {
-            if (child.IsDirectory) {
+        console.log('gallery.render: ' + this.currentpath);
+        var htmlChildren;
+        if (children) {
+            htmlChildren = children.map(function (child, index) {
+                if (child.IsDirectory) {
+                    return (
+                        <div key={index} onClick={() => listDirectory(child.Path)}>
+                            {child.Name}
+                        </div>
+                    );
+                }
+                else {
+                    return (
+                        <div key={index}>image</div>
+                    );
+                }
+            });
+        }
+        else {
+            htmlChildren = <div>nothing found</div>;
+        }
+
+        console.log('<****************>');
+        console.log(currentpath);
+        var htmlpath = currentpath
+            .split('/')
+            .filter((item) => (item != ''))
+            .map(function (item, index) {
                 return (
-                    <div key={index} onClick={() => selectDirectory(child.name)}>
-                        {child.Name}
+                    <div id='index'>
+                        <div>/</div>
+                        <div>{item}</div>
                     </div>
                 );
-            }
-            else {
-                return (
-                    <div key={index}>image</div>
-                );
-            }
-        });
+            });
+        // if (a.length > 0) {
+        //     a.forEach(function (element) {
+        //         console.log('splitted this part: ' + element);
+        //         htmlpath += <div>/</div> + <div></div>;
+        //     });
+        // }
+        // else {
+        //     htmlpath = <div>/</div>;
+        // }
+
+        console.log(htmlpath);
+        console.log('</****************>');
 
         return (
             <div>
-                {htmlChildren}
+                <div id='path'>{htmlpath}</div>
+                <div>
+                    {htmlChildren}
+                </div>
             </div>
         );
+
     }
 }
 
@@ -57,7 +82,7 @@ function mapActionCreatorsToProps(dispatch) {
 function mapStateToProps(state) {
     return {
         children: state.children,
-        path: state.currentpath
+        currentpath: state.currentpath
     };
 }
 

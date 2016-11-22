@@ -1,15 +1,18 @@
 import { listChildren } from './communication';
-
+import * as GalleryActions from './actions.js';
 import { put, take } from 'redux-saga/effects';
 
-export function* loadChildren() {
-    const children = yield listChildren();
-    yield put({type: 'CD_DONE', children});
+export function* loadChildren(newpath = '/') {
+  const children = yield listChildren(newpath);
+  //console.log('from saga: ' + children);
+  yield put({ type: 'CD_DONE', children });
 }
 
 export function* watchForLoadChildren() {
-  while(true) {
-    yield take('CD');
-    yield loadChildren();
+  while (true) {
+    //console.log('watching for LIST_DIRECTORY action');
+    const { directory } = yield take(GalleryActions.LIST_DIRECTORY);
+    console.log('got a LIST_DIRECTORY action ' + directory);
+    yield loadChildren(directory);
   }
 }

@@ -7,15 +7,14 @@ import Gallery from './Gallery';
 import { createStore, applyMiddleware } from 'redux';
 import createSagaMiddleware from 'redux-saga';
 import reducer from './reducer';
-import {loadChildren} from './saga';
-
+import {watchForLoadChildren} from './saga';
 
 const sagaMiddleware = createSagaMiddleware();
 const store = createStore(
   reducer,
   applyMiddleware(sagaMiddleware)
 );
-sagaMiddleware.run(loadChildren);
+sagaMiddleware.run(watchForLoadChildren);
 
 import { Provider } from 'react-redux';
 

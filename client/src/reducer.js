@@ -1,6 +1,6 @@
 const defaultState = {
     children: [],
-    currentPath: '/'
+    currentpath: '/'
 };
 
 
@@ -9,9 +9,10 @@ export default function children(state = defaultState, action) {
         case 'LIST_DIRECTORY':
             return {
                 ...state,
-                currentPath: action.child.path
+                currentpath: action.directory
             };
         case 'CD_DONE':
+            console.log('reducer, received CD_DONE' + action);
             return {
                 ...state,
                 children: action.children

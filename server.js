@@ -37,7 +37,7 @@ var router = express.Router();
 // });
 
 router.get('/files', function (req, res) {
-  console.log(req.query);
+  console.log("server.js: logging query: " + req.query.path);
   var query = req.query.path || '';
   var currentDir;
   if (query) {
@@ -59,11 +59,11 @@ router.get('/files', function (req, res) {
           .forEach(function (file) {
             var isDirectory = fs.statSync(path.join(currentDir, file)).isDirectory();
             if (isDirectory) {
-              //find out if it has children
+              //TODO. find out if it has children
               data.push({ Name: file, IsDirectory: true, Path: path.join(query, file) });
             } else {
               var ext = path.extname(file);
-              data.push({ Name: file, Ext: ext, IsDirectory: false, Path: path.join(query.file) });
+              data.push({ Name: file, Ext: ext, IsDirectory: false, Path: path.join(query, file) });
             }
           });
         data = _.sortBy(data, function (f) { return f.Name });
