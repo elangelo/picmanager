@@ -2,7 +2,9 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import * as GalleryActions from './actions.js';
+import * as GalleryActions from '../actions';
+
+import PathToolbar from './pathtoolbar';
 
 export class Gallery extends Component {
     constructor(props) {
@@ -14,8 +16,6 @@ export class Gallery extends Component {
     }
     render() {
         const {children, currentpath, listDirectory} = this.props;
-
-        console.log('gallery.render: ' + this.currentpath);
         var htmlChildren;
         if (children) {
             htmlChildren = children.map(function (child, index) {
@@ -37,34 +37,10 @@ export class Gallery extends Component {
             htmlChildren = <div>nothing found</div>;
         }
 
-
-        var pathparts = currentpath
-            .split('/')
-            .filter((item) => (item != ''));
-        var grmblpath = new Array();
-        for (var i = 0; i < pathparts.length; i++) {
-            var grr = pathparts[i];
-            if (i > 0) {
-                grr = grmblpath[i - 1] + grr;
-            }
-            grmblpath[i] = grr;
-        }
-
-        var htmlpath = grmblpath.map(function (item, index) {
-            return (
-                <div id={index} style={{display: 'block', border: '1px solid red'}}>
-                    <div style={{float: 'left'}}>></div>
-                    <div style={{float: 'left'}} onClick={() => listDirectory(item)}>
-                        {item}
-                    </div>
-                </div>
-            );
-        });
-
         return (
             <div>
-                <div id='path'>{htmlpath}</div>
-                <div style={{display: 'block'}}>
+                <PathToolbar listDirectory={listDirectory} path={currentpath} />
+                <div style={{clear:'both'}}>
                     {htmlChildren}
                 </div>
             </div>
