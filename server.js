@@ -93,8 +93,9 @@ router.get('/files', function (req, res) {
   });
 });
 
-router.get('/thumb', function (req, res) {
+router.get('/image', function (req, res) {
   var query = req.query.path || '';
+  var size = parseInt(req.query.size) || 200;
   var currentDir;
   if (query) {
     currentDir = path.join(basedir, query);
@@ -106,12 +107,9 @@ router.get('/thumb', function (req, res) {
       res.status(404).send("could not find that");
     }
     else {
-      console.log(currentDir);
-      // var img = fs.readFileSync(currentDir);
-      // res.writeHead(200, {'Content-Type': 'image/JPG'});
-      // res.end(img, 'binary');
+      console.log(currentDir, "/ ", size);
       var img = sharp(currentDir);
-      img.resize(100, 100).toBuffer().then(function (data) {
+      img.resize(size, size).toBuffer().then(function (data) {
         res.writeHead(200, { 'Content-Type': 'image/JPG' });
         res.end(data, 'binary');
       });
