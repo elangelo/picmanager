@@ -5,6 +5,7 @@ import { bindActionCreators } from 'redux';
 import * as GalleryActions from '../actions';
 
 import PathToolbar from './pathtoolbar';
+import GalleryFolder from './galleryfolder';
 
 export class Gallery extends Component {
     constructor(props) {
@@ -21,9 +22,7 @@ export class Gallery extends Component {
             htmlChildren = children.map(function (child, index) {
                 if (child.IsDirectory) {
                     return (
-                        <div key={index} onClick={() => listDirectory(child.Path)}>
-                            {child.Name}
-                        </div>
+                        <GalleryFolder name={child.Name} path={child.Path} listDirectory={listDirectory}/>
                     );
                 }
                 else {
