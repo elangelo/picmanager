@@ -6,6 +6,7 @@ import * as GalleryActions from '../actions';
 
 import PathToolbar from './pathtoolbar';
 import GalleryFolder from './galleryfolder';
+import GalleryImage from './galleryimage';
 
 export class Gallery extends Component {
     constructor(props) {
@@ -22,12 +23,12 @@ export class Gallery extends Component {
             htmlChildren = children.map(function (child, index) {
                 if (child.IsDirectory) {
                     return (
-                        <GalleryFolder name={child.Name} path={child.Path} listDirectory={listDirectory}/>
+                        <GalleryFolder name={child.Name} path={child.Path} tags={child.Tags} listDirectory={listDirectory}/>
                     );
                 }
                 else {
                     return (
-                        <div key={index}>image</div>
+                        <GalleryImage name={child.Name} path={child.Path} /> 
                     );
                 }
             });
@@ -37,9 +38,9 @@ export class Gallery extends Component {
         }
 
         return (
-            <div>
+            <div style={{backgroundColor: 'rgba(0, 0, 0, 1)'}}>
                 <PathToolbar listDirectory={listDirectory} path={currentpath} />
-                <div style={{clear:'both'}}>
+                <div style={{clear:'both', backgroundColor: '#555'}}>
                     {htmlChildren}
                 </div>
             </div>

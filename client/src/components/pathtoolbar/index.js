@@ -17,18 +17,18 @@ export default function PathToolbar({path, listDirectory}) {
 
     var htmlpath = explodedPath.map(function (item, index) {
         return (
-            <div id={index} style={{ background: 'green' }}>
-                <div style={{ float: 'left', paddingLeft: 10, paddingRight: 10 }}>></div>
-                <div onClick={listDirectory.bind(this, item.path)} style={{ float: 'left' }}>
+            <div id={index}>
+                <div style={{ float: 'left', color: 'rgb(255, 255, 255)', paddingLeft: 10, paddingRight: 10 }}>></div>
+                <div onClick={listDirectory.bind(this, item.path)} style={{ float: 'left', color: 'rgb(255, 255, 255)' }}>
                     {item.name}
                 </div>
             </div>
         );
     });
     return (
-        <div style={{ height: 40, background: 'green', width: '100%', clear: 'both', paddingLeft: 45, position: 'relative'}}>
+        <div style={{ height: 40, background: 'rgb(10, 10, 10)',  width: '100%', clear: 'both', paddingLeft: 45, position: 'relative'}}>
             <div style={{position: 'absolute', top: '50%', transform: 'translate(0,-50%)', width: '100%'}}>
-                <div style={{ float: 'left' }} onClick={listDirectory.bind(this, '/')}>root</div>
+                <div style={{ float: 'left', color: 'rgb(255, 255, 255)' }} onClick={listDirectory.bind(this, '/')}>root</div>
                 {htmlpath}
             </div>
         </div>
