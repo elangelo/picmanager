@@ -109,7 +109,7 @@ router.get('/image', function (req, res) {
     else {
       console.log(currentDir, "/ ", size);
       var img = sharp(currentDir);
-      img.resize(size, size).toBuffer().then(function (data) {
+      img.rotate().resize(size, size).toBuffer().then(function (data) {
         res.writeHead(200, { 'Content-Type': 'image/JPG' });
         res.end(data, 'binary');
       });

@@ -12,7 +12,8 @@ const maincontainerStyle = {
     height: 200,
     marginLeft: 1,
     marginRight: 12.5,
-    marginTop: 16
+    marginTop: 16,
+    padding: 5
 };
 
 // const tagcontainerStyle = {
@@ -26,11 +27,10 @@ const maincontainerStyle = {
 
 export default function GalleryImage({name, path, selectImage}) {
     var fulluri = '/api/image?path=' + path + '&size=100';
-    // onClick={selectImage.bind(this, path)}
     return (
-        <div style={maincontainerStyle}>
-            <div style={{ margin: 'auto', width: '60%' }}>
-                <img src={fulluri} />
+        <div style={maincontainerStyle} onClick={selectImage.bind(this, path)}>
+            <div style={{ margin: 'auto', width: '80%' }}>
+                <img style={{height: 160, width: 160}} src={fulluri} />
             </div>
             <div style={{ margin: 'auto', textAlign: 'center', fontWeight: 'normal' }}>
                 {name}
