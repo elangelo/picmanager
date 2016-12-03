@@ -11,7 +11,8 @@ const maincontainerStyle = {
     height: 200,
     marginLeft: 1,
     marginRight: 12.5,
-    marginTop: 16
+    marginTop: 16,
+    cursor: 'pointer'
 };
 
 const tagcontainerStyle = {
@@ -34,7 +35,7 @@ export default function GalleryFolder({name, path, tags, listDirectory}) {
     }
 
     return (
-        <div style={maincontainerStyle} onClick={listDirectory.bind(this, path)}>
+        <div style={maincontainerStyle} onClick={listDirectory.bind(this, path)} >
             <div style={{ margin: 'auto', width: '70%' }}>
                 <svg style={{ width: 140, height: 140 }} preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24">
                     <path d="M20 6h-8l-2-2h-6c-1.1 0-1.99.9-1.99 2l-.01 12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2v-10c0-1.1-.9-2-2-2zm0 12h-16v-10h16v10z"></path>

@@ -37,22 +37,28 @@ export class Gallery extends Component {
             htmlChildren = <div>nothing found</div>;
         }
 
-        var navigationHeight = '75%';
+        var windowheight = window.innerHeight;
+
+        var navigationHeight = windowheight - 40 + 'px';
         var imagePreview;
+        var overflowX = 'none';
+        var overflowY = 'auto';
         if (currentimage) {
-            navigationHeight = '10%';
+            navigationHeight = '100px';
+            overflowX = 'auto';
+            overflowY = 'none';
             var imgsrc = '/api/image?path=' + currentimage + '&size=800';
-            imagePreview = <div><img src={imgsrc} /></div>;
+            imagePreview = <div style={{ flex: 1 }}><img style={{flex: 1}} src={imgsrc} /></div>;
         }
         else {
-            imagePreview = <div></div>;
+            imagePreview = <div  style={{ height: '0px' }}></div>;
         }
 
         return (
-            <div style={{ backgroundColor: 'rgba(0, 0, 0, 1)' }}>
+            <div style={{ backgroundColor: 'rgba(0, 0, 0, 1)', flex: 1 }}>
                 <PathToolbar listDirectory={listDirectory} path={currentpath} />
                 {imagePreview}
-                <div style={{ clear: 'both', backgroundColor: '#555', height: navigationHeight }}>
+                <div style={{ clear: 'both', backgroundColor: '#555', height: navigationHeight, overflowY: overflowY, overflowX: overflowX }}>
                     {htmlChildren}
                 </div>
             </div>
