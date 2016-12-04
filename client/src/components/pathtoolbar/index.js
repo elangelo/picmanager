@@ -25,9 +25,12 @@ export default function PathToolbar({path, listDirectory}) {
             </div>
         );
     });
+
+    var pathwidth = window.innerWidth;
+
     return (
-        <div style={{ height: 40, background: 'rgb(10, 10, 10)',  width: '100%', clear: 'both', position: 'relative'}}>
-            <div style={{position: 'absolute', top: '50%', transform: 'translate(45,-50%)', width: '100%'}}>
+        <div style={{ height: 40, background: 'rgb(10, 10, 10)', width: '100%', clear: 'both', position: 'relative' }}>
+            <div style={{ position: 'absolute', top: '50%', transform: 'translate(0, -50%)', width: pathwidth - 45, paddingLeft: '45px' }}>
                 <div style={{ float: 'left', color: 'rgb(255, 255, 255)', cursor: 'pointer' }} onClick={listDirectory.bind(this, '/')}>root</div>
                 {htmlpath}
             </div>

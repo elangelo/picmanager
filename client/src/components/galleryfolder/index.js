@@ -5,34 +5,48 @@ const maincontainerStyle = {
     borderColor: '#fff',
     borderWidth: 1,
     boxShadow: '2px 2px 5px rgba(0,0,0,0.25)',
-    float: 'left',
-    display: 'block',
+    display: 'inline-block',
     width: 200,
     height: 200,
     marginLeft: 1,
     marginRight: 12.5,
     marginTop: 16,
-    cursor: 'pointer'
+    cursor: 'pointer',
+    overflow: 'hidden'
 };
 
 const tagcontainerStyle = {
     backgroundColor: '#C6FCFF',
     color: 'rgb( 100, 100, 100)',
     fontSize: 'small',
-    margin:  2,
+    margin: 2,
     padding: 2,
-    float: 'left'
+    // float: 'left'
+    display: 'inline-block'
 };
 
 export default function GalleryFolder({name, path, tags, listDirectory}) {
 
+    if (name.length > 10) {
+        var derest = name.substring(11, name.length);
+        name = name.substring(0, 10);
+        if (tags) {
+            tags[tags.length] = derest;
+        }
+        else {
+            tags = new Array();
+            tags[0] = derest;
+        }
+    }
+
     if (tags) {
         var tagCloud = tags.map(function (item, index) {
-            return (<div style={ tagcontainerStyle }>
+            return (<div style={tagcontainerStyle}>
                 {item}
             </div>);
         });
     }
+
 
     return (
         <div style={maincontainerStyle} onClick={listDirectory.bind(this, path)} >
@@ -41,10 +55,10 @@ export default function GalleryFolder({name, path, tags, listDirectory}) {
                     <path d="M20 6h-8l-2-2h-6c-1.1 0-1.99.9-1.99 2l-.01 12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2v-10c0-1.1-.9-2-2-2zm0 12h-16v-10h16v10z"></path>
                 </svg>
             </div>
-            <div style={{ margin: 'auto', textAlign: 'center', fontWeight: 'normal' }}>
+            <div style={{ margin: 'auto', textAlign: 'center', fontWeight: 'normal', height: '12px' }}>
                 {name}
             </div>
-            <div style={{margin: 5, padding: 5}}>
+            <div style={{ margin: 5, padding: 5 }}>
                 {tagCloud}
             </div>
         </div>
