@@ -17,6 +17,7 @@ export class Gallery extends Component {
         this.props.listDirectory('/');
     }
     render() {
+        console.log('in render method of gallery');
         const {children, currentpath, currentimage, selectImage, listDirectory} = this.props;
         var htmlChildren;
         if (children) {
@@ -48,10 +49,10 @@ export class Gallery extends Component {
             overflowX = 'auto';
             overflowY = 'none';
             var imgsrc = '/api/image?path=' + currentimage + '&size=800';
-            imagePreview = <div style={{ flex: 1 }}><img style={{flex: 1}} src={imgsrc} /></div>;
+            imagePreview = <div style={{ flex: 1 }}><img style={{ flex: 1 }} src={imgsrc} /></div>;
         }
         else {
-            imagePreview = <div  style={{ height: '0px' }}></div>;
+            imagePreview = <div style={{ height: '0px' }}></div>;
         }
 
         return (
