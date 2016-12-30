@@ -40,28 +40,36 @@ export class Gallery extends Component {
 
         var windowheight = window.innerHeight;
 
-        var navigationHeight = windowheight - 40 + 'px';
+        var navigationHeight = windowheight - 40;
         var imagePreview;
+        var thumbs;
         var overflowX = 'none';
         var overflowY = 'auto';
         if (currentimage) {
-            navigationHeight = '100px';
+            navigationHeight = 275;
+            var previewheight = windowheight - navigationHeight;
             overflowX = 'auto';
             overflowY = 'none';
             var imgsrc = '/api/image?path=' + currentimage + '&size=800';
-            imagePreview = <div style={{ flex: 1 }}><img style={{ flex: 1 }} src={imgsrc} /></div>;
+            imagePreview = <div style={{display:'block'}}>
+                            <div style={{display:'inline-block', color:'white'}}>&lt;</div>
+                             <div style={{ height: previewheight, display:'inline-block' }}>
+                               <img style={{ height: previewheight - 10, margin: 'auto' }} src={imgsrc} />
+                             </div>
+                             <div style={{display:'inline-block', color:'white'}}>&gt;</div>
+                           </div>;
+            thumbs =  <div style={{ clear: 'both', backgroundColor: '#555', height: navigationHeight, whiteSpace: 'nowrap', overflowX:overflowX, overflowY:overflowY }}>{htmlChildren}</div>;
         }
         else {
-            imagePreview = <div style={{ height: '0px' }}></div>;
+            imagePreview = <div style={{ display: 'none' }}></div>;
+            thumbs =  <div style={{ clear: 'both', backgroundColor: '#555', height: navigationHeight, overflowX:overflowX, overflowY:overflowY}}>{htmlChildren}</div>;
         }
 
         return (
             <div style={{ backgroundColor: 'rgba(0, 0, 0, 1)', flex: 1 }}>
                 <PathToolbar listDirectory={listDirectory} path={currentpath} />
                 {imagePreview}
-                <div style={{ clear: 'both', backgroundColor: '#555', height: navigationHeight, overflowY: overflowY, overflowX: overflowX }}>
-                    {htmlChildren}
-                </div>
+                {thumbs}
             </div>
         );
 

@@ -31,7 +31,7 @@ app.set('port', (process.env.PORT || 3100));
 //   }
 // });
 
-var basedir = '/home/samuel/temp/800'
+var basedir = '/home/samuel/tmp/full'
 
 var router = express.Router();
 
@@ -93,7 +93,7 @@ router.get('/files', function (req, res) {
   });
 });
 
-router.get('/image', function (req, res) {
+router.get('/thumb', function (req, res) {
   var query = req.query.path || '';
   var size = parseInt(req.query.size) || 200;
   var currentDir;
@@ -112,6 +112,36 @@ router.get('/image', function (req, res) {
       img.rotate().resize(size, size).toBuffer().then(function (data) {
         res.writeHead(200, { 'Content-Type': 'image/JPG' });
         res.end(data, 'binary');
+      });
+    }
+  });
+});
+
+router.get('/image', function (req, res) {
+  var query = req.query.path || '';
+  var size = parseInt(req.query.size) || 200;
+  var currentDir;
+  if (query) {
+    currentDir = path.join(basedir, query);
+  } else {
+    res.status(404).send("could not find that");
+  }
+  fs.stat(currentDir, function (err, stats) {
+    if (err && err.errno === -2) {
+      res.status(404).send("could not find that");
+    }
+    else {
+      var img = sharp(currentDir);
+      img.metadata()
+      .then(function(metadata){
+        return img
+          .rotate()
+          .resize(800)
+          .toBuffer();
+      })
+      .then(function(data){
+          res.writeHead(200, { 'Content-Type': 'image/JPG' });
+          res.end(data, 'binary');
       });
     }
   });

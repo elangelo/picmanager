@@ -26,7 +26,7 @@ const maincontainerStyle = {
 // };
 
 export default function GalleryImage({name, path, selectImage}) {
-    var fulluri = '/api/image?path=' + path + '&size=100';
+    var fulluri = '/api/thumb?path=' + path + '&size=100';
     return (
         <div style={maincontainerStyle} onClick={selectImage.bind(this, path)}>
             <div style={{ margin: 'auto', width: '80%' }}>
