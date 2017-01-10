@@ -21,7 +21,6 @@ const tagcontainerStyle = {
     fontSize: 'small',
     margin: 2,
     padding: 2,
-    // float: 'left'
     display: 'inline-block'
 };
 

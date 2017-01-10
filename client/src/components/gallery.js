@@ -7,6 +7,7 @@ import * as GalleryActions from '../actions';
 import PathToolbar from './pathtoolbar';
 import GalleryFolder from './galleryfolder';
 import GalleryImage from './galleryimage';
+import ImageViewer from './imageviewer';
 
 export class Gallery extends Component {
     constructor(props) {
