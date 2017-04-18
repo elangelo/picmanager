@@ -80,15 +80,30 @@ router.get('/files', function (req, res) {
               } else {
                 var ext = path.extname(file);
                 if (ext == '.JPG') {
-                  data.push({ Name: file, Ext: ext, IsDirectory: false, Path: path.join(query, file) });
+                  var img = sharp(file)
+                    .metadata(function (err, metadata) {
+                      data.push({
+                        Name: file,
+                        Ext: ext,
+                        IsDirectory: false,
+                        Path: path.join(query, file),
+                        Metadata: {
+                          Width: metadata.width,
+                          Height: metadata.height
+                        }
+                      });
+                    });
                 }
+
+                // data.push({ Name: file, Ext: ext, IsDirectory: false, Path: path.join(query, file) });
               }
+            }
             });
-          data = _.sortBy(data, function (f) { return f.Name });
-          console.log(data);
-          res.json(data);
-        })
-      }
+        data = _.sortBy(data, function (f) { return f.Name });
+        console.log(data);
+        res.json(data);
+      })
+}
     }
   });
 });
@@ -133,16 +148,16 @@ router.get('/image', function (req, res) {
     else {
       var img = sharp(currentDir);
       img.metadata()
-      .then(function(metadata){
-        return img
-          .rotate()
-          .resize(800)
-          .toBuffer();
-      })
-      .then(function(data){
+        .then(function (metadata) {
+          return img
+            .rotate()
+            .resize(800)
+            .toBuffer();
+        })
+        .then(function (data) {
           res.writeHead(200, { 'Content-Type': 'image/JPG' });
           res.end(data, 'binary');
-      });
+        });
     }
   });
 });
